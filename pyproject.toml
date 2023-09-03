@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools-rust"]
+
+[tool.pyright]
+include = [
+    "rust_neotools",
+]
+exclude = [
+    "**/__pycache__",
+]
+reportUnnecessaryTypeIgnoreComment = "warning"
+reportUnusedImport = "error"
+pythonVersion = "3.8"
+typeCheckingMode = "basic"

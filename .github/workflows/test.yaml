@@ -1,0 +1,42 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ '3.8', '3.x' ]
+
+    name: pytest ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up CPython ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source ./venv/bin/activate
+          pip install --upgrade pip setuptools wheel pytest setuptools-rust
+          pip install -U -r requirements_dev.txt
+      - name: Installing distribution (dev mode)
+        # this adds the .so to the inner lib files so we can test
+        run: |
+          source ./venv/bin/activate
+          python ./setup.py develop
+      - name: Run tests
+        shell: bash
+        run: |
+          source ./venv/bin/activate
+          PYTHONPATH="$(pwd)" pytest
