@@ -4,6 +4,7 @@ use pyo3::{
     prelude::*,
     types::{PyDateAccess, PyDateTime, PyTzInfoAccess},
 };
+use rayon::iter::{ParallelBridge, ParallelIterator};
 
 use crate::php5random::Php5Random;
 
@@ -26,9 +27,7 @@ impl IslandMystic {
             username_ord.resize(4, 0);
         }
 
-        let yyyymmdd: u32 = (format!("{:04}{:02}{:02}", year, month, day))
-            .parse()
-            .unwrap();
+        let yyyymmdd: u32 = year as u32 * 10000 + month as u32 * 100 + day as u32;
 
         let magic_number: u32 = yyyymmdd
             + 287234 * username_ord[0]
@@ -40,6 +39,7 @@ impl IslandMystic {
     }
 
     /// Checks if the given username has an avatar on the given date, in English.
+    #[inline]
     fn check_rust(username: &str, year: i32, month: u8, day: u8) -> bool {
         let mut rng: Php5Random = IslandMystic::new_rng(username, year, month, day);
 
@@ -67,6 +67,7 @@ impl IslandMystic {
 
     /// Checks if the given username has an avatar on the given date, in non-English.
     /// I'm not entirely sure why non-English folk are so much less likely to get an avatar.
+    #[inline]
     fn check_non_english_rust(username: &str, year: i32, month: u8, day: u8) -> bool {
         let mut rng: Php5Random = IslandMystic::new_rng(username, year, month, day);
 
@@ -74,29 +75,42 @@ impl IslandMystic {
     }
 
     pub fn brute_force_day_rust(year: i32, month: u8, day: u8, english: bool) -> Vec<String> {
-        let mut usernames = Vec::new();
-
         let func = if english {
             IslandMystic::check_rust
         } else {
             IslandMystic::check_non_english_rust
         };
 
-        for (c0, c1, c2) in iproduct!(CHARS.chars(), CHARS.chars(), CHARS.chars()) {
-            let username = format!("{}{}{}", c0, c1, c2);
-            if func(&username, year, month, day) {
-                usernames.push(username);
-            }
-        }
+        let char_combinations = iproduct!(CHARS.chars(), CHARS.chars(), CHARS.chars());
 
-        for (c0, c1, c2, c3) in
-            iproduct!(CHARS.chars(), CHARS.chars(), CHARS.chars(), CHARS.chars())
-        {
-            let username = format!("{}{}{}{}", c0, c1, c2, c3);
-            if func(&username, year, month, day) {
-                usernames.push(username);
-            }
-        }
+        let mut usernames: Vec<String> = char_combinations
+            .par_bridge() // Parallelize processing
+            .filter_map(|(c0, c1, c2)| {
+                let username = [c0, c1, c2].iter().collect::<String>();
+                if func(&*username, year, month, day) {
+                    Some(username)
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        let longer_char_combinations =
+            iproduct!(CHARS.chars(), CHARS.chars(), CHARS.chars(), CHARS.chars());
+
+        usernames.extend(
+            longer_char_combinations
+                .par_bridge() // Parallelize processing
+                .filter_map(|(c0, c1, c2, c3)| {
+                    let username = [c0, c1, c2, c3].iter().collect::<String>();
+                    if func(&*username, year, month, day) {
+                        Some(username)
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Vec<String>>(),
+        );
 
         usernames
     }
@@ -248,5 +262,11 @@ mod tests {
     fn test_mystic_brute_force_user() {
         let date = IslandMystic::brute_force_user_rust("diceroll123", 2023, 3, 31, 1, true);
         assert!(date == NaiveDate::from_ymd_opt(2023, 4, 2));
+    }
+
+    #[test]
+    fn test_mystic_brute_force_user_non_english() {
+        let usernames = IslandMystic::brute_force_day_rust(2023, 1, 3, true);
+        assert!(usernames.len() > 0);
     }
 }

@@ -1,6 +1,6 @@
 mod islandmystic;
-mod symol;
 mod php5random;
+mod symol;
 use pyo3::prelude::*;
 
 use islandmystic::IslandMystic;
