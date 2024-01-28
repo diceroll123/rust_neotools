@@ -32,6 +32,7 @@ impl Php5Random {
         }
     }
 
+    #[inline]
     pub fn rand(&mut self) -> u32 {
         let k_as_isize = self.k as isize;
         self.r[self.k] = (self.r[(k_as_isize - 31).rem_euclid(34) as usize] as i64
