@@ -112,6 +112,9 @@ impl IslandMystic {
                 .collect::<Vec<String>>(),
         );
 
+        //  sort usernames alphabetically
+        usernames.sort_unstable();
+
         usernames
     }
 
