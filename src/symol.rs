@@ -35,11 +35,11 @@ impl Symol {
 #[pymethods]
 impl Symol {
     #[staticmethod]
-    fn get_minute(date: &PyDateTime) -> i8 {
+    fn get_minute<'py>(date: &Bound<PyDateTime>) -> i8 {
         Symol::get_minute_rust(date.get_year(), date.get_month(), date.get_day())
     }
     #[staticmethod]
-    fn get_window(date: &PyDateTime) -> Vec<i8> {
+    fn get_window<'py>(date: &Bound<PyDateTime>) -> Vec<i8> {
         Symol::get_window_rust(date.get_year(), date.get_month(), date.get_day())
     }
 }
