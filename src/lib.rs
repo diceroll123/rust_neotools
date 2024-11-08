@@ -7,7 +7,8 @@ use islandmystic::IslandMystic;
 use symol::Symol;
 
 #[pymodule]
-fn rust_neotools(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
+#[pyo3(name = "rust_neotools")]
+fn rust_neotools(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<IslandMystic>()?;
     m.add_class::<Symol>()?;
 

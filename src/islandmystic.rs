@@ -163,17 +163,17 @@ impl IslandMystic {
 #[pymethods]
 impl IslandMystic {
     #[staticmethod]
-    pub fn check(dt: &PyDateTime, username: &str) -> bool {
+    pub fn check(dt: &Bound<PyDateTime>, username: &str) -> bool {
         IslandMystic::check_rust(username, dt.get_year(), dt.get_month(), dt.get_day())
     }
 
     #[staticmethod]
-    pub fn check_non_english(dt: &PyDateTime, username: &str) -> bool {
+    pub fn check_non_english(dt: &Bound<PyDateTime>, username: &str) -> bool {
         IslandMystic::check_non_english_rust(username, dt.get_year(), dt.get_month(), dt.get_day())
     }
 
     #[staticmethod]
-    pub fn brute_force_day(dt: &PyDateTime, english: bool) -> Vec<String> {
+    pub fn brute_force_day(dt: &Bound<PyDateTime>, english: bool) -> Vec<String> {
         let year = dt.get_year();
         let month = dt.get_month();
         let day = dt.get_day();
@@ -183,11 +183,11 @@ impl IslandMystic {
 
     #[staticmethod]
     pub fn brute_force_user<'a>(
-        dt: &'a PyDateTime,
+        dt: &Bound<'a, PyDateTime>,
         username: &str,
         step: i64,
         english: bool,
-    ) -> Option<&'a PyDateTime> {
+    ) -> Option<Bound<'a, PyDateTime>> {
         let chrono_dt = IslandMystic::brute_force_user_rust(
             username,
             dt.get_year(),
@@ -198,7 +198,7 @@ impl IslandMystic {
         );
 
         if let Some(finished) = chrono_dt {
-            let new_dt = PyDateTime::new(
+            let new_dt = PyDateTime::new_bound(
                 dt.py(),
                 finished.year(),
                 finished.month() as u8,
@@ -207,7 +207,7 @@ impl IslandMystic {
                 0,
                 0,
                 0,
-                dt.get_tzinfo(),
+                dt.get_tzinfo_bound().as_ref(),
             );
 
             if let Ok(new_dt) = new_dt {
