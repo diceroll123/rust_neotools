@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 class Symol:
     @staticmethod
@@ -27,6 +26,6 @@ class IslandMystic:
     @staticmethod
     def brute_force_user(
         date: datetime, username: str, step: int, english: bool
-    ) -> Optional[datetime]:
+    ) -> datetime | None:
         """Brute forces all dates for the given username, for the languange and step direction of time given."""
         ...
