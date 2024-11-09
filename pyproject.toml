@@ -1,5 +1,31 @@
 [build-system]
-requires = ["setuptools", "wheel", "setuptools-rust"]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "rust_neotools.py"
+version = "0.0.3"
+description = "A Rust implementation of PHP 5's RNG to run some Neopets math, with python bindings."
+authors = [{ name = "diceroll123" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = []
+classifiers=[
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/diceroll123/rust_neotools"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+]
 
 [tool.pyright]
 include = [
