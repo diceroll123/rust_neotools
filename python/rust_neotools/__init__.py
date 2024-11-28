@@ -4,7 +4,7 @@ __license__ = "MIT"
 __copyright__ = "Copyright 2023-present diceroll123"
 __version__ = "0.0.3"
 
-from rust_neotools import IslandMystic, Symol
+from rust_neotools import IslandMystic, Symol  # type: ignore  # noqa
 
 __all__ = (
     "IslandMystic",

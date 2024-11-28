@@ -75,6 +75,6 @@ mod tests {
     #[test]
     fn test_symol_window_skip_day_capped() {
         let window = Symol::get_window_rust(2022, 9, 19);
-        assert!(window == vec![])
+        assert!(window.is_empty())
     }
 }

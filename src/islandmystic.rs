@@ -87,7 +87,7 @@ impl IslandMystic {
             .par_bridge() // Parallelize processing
             .filter_map(|(c0, c1, c2)| {
                 let username = [c0, c1, c2].iter().collect::<String>();
-                if func(&*username, year, month, day) {
+                if func(&username, year, month, day) {
                     Some(username)
                 } else {
                     None
@@ -103,7 +103,7 @@ impl IslandMystic {
                 .par_bridge() // Parallelize processing
                 .filter_map(|(c0, c1, c2, c3)| {
                     let username = [c0, c1, c2, c3].iter().collect::<String>();
-                    if func(&*username, year, month, day) {
+                    if func(&username, year, month, day) {
                         Some(username)
                     } else {
                         None
@@ -198,7 +198,7 @@ impl IslandMystic {
         );
 
         if let Some(finished) = chrono_dt {
-            let new_dt = PyDateTime::new_bound(
+            let new_dt = PyDateTime::new(
                 dt.py(),
                 finished.year(),
                 finished.month() as u8,
@@ -207,7 +207,7 @@ impl IslandMystic {
                 0,
                 0,
                 0,
-                dt.get_tzinfo_bound().as_ref(),
+                dt.get_tzinfo().as_ref(),
             );
 
             if let Ok(new_dt) = new_dt {
@@ -270,6 +270,6 @@ mod tests {
     #[test]
     fn test_mystic_brute_force_user_non_english() {
         let usernames = IslandMystic::brute_force_day_rust(2023, 1, 3, true);
-        assert!(usernames.len() > 0);
+        assert!(!usernames.is_empty());
     }
 }
