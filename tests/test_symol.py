@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from rust_neotools import Symol
+from rust_neotools import Symol  # type: ignore  # noqa
 
 
 def test_symol_minute() -> None:
