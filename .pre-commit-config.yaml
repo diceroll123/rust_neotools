@@ -15,7 +15,7 @@ repos:
       - id: ruff
         args: [--fix]
       - id: ruff-format
-  - repo: https://github.com/RobertCraigie/pyright-python
+  - repo: jakebailey/pyright-action@v2
     rev: v1.1.389
     hooks:
       - id: pyright
