@@ -19,6 +19,11 @@ repos:
     rev: v1.1.389
     hooks:
       - id: pyright
+  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+    rev: v0.6.0post1
+    hooks:
+      - id: pre-commit-update
+        args: []
 
   - repo: local
     hooks:
