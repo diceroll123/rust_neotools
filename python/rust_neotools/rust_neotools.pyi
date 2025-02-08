@@ -27,5 +27,5 @@ class IslandMystic:
     def brute_force_user(
         date: datetime, username: str, step: int, english: bool
     ) -> datetime | None:
-        """Brute forces all dates for the given username, for the languange and step direction of time given."""
+        """Brute forces all dates for the given username, for the language and step direction of time given."""
         ...
