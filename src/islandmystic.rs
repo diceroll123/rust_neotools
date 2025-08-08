@@ -52,7 +52,7 @@ impl IslandMystic {
                 let result = rng.rand() % 23;
                 return (result > 1 && result < 5) && (rng.rand() % 20 == 11);
             }
-        } else if rng.rand() % 3 == 0 {
+        } else if rng.rand().is_multiple_of(3) {
             rng.rand();
             rng.rand();
             rng.rand();
@@ -71,7 +71,7 @@ impl IslandMystic {
     fn check_non_english_rust(username: &str, year: i32, month: u8, day: u8) -> bool {
         let mut rng: Php5Random = IslandMystic::new_rng(username, year, month, day);
 
-        rng.rand() % 920 == 0
+        rng.rand().is_multiple_of(920)
     }
 
     pub fn brute_force_day_rust(year: i32, month: u8, day: u8, english: bool) -> Vec<String> {
