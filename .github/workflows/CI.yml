@@ -200,7 +200,6 @@ jobs:
       - macos-universal
       - musllinux
       - musllinux-cross
-      - windows
     if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')) || github.event_name == 'release'
     steps:
       - name: "Install uv"
