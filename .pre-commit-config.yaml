@@ -1,6 +1,6 @@
 repos:
   - repo: "https://github.com/pre-commit/pre-commit-hooks"
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: check-merge-conflict
@@ -10,17 +10,17 @@ repos:
       - id: debug-statements
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.12.8
+    rev: v0.14.5
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
   - repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.403
+    rev: v1.1.407
     hooks:
       - id: pyright
   - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
-    rev: v0.8.0
+    rev: v0.9.0
     hooks:
       - id: pre-commit-update
         args: []
