@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "rust_neotools.py"
-version = "0.0.3"
+dynamic = ["version"]
 description = "A Rust implementation of PHP 5's RNG to run some Neopets math, with python bindings."
 authors = [{ name = "diceroll123" }]
 readme = "README.md"
