@@ -3,7 +3,7 @@ requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
 [project]
-name = "rust_neotools_py"
+name = "rust_neotools"
 dynamic = ["version"]
 description = "A Rust implementation of PHP 5's RNG to run some Neopets math, with python bindings."
 authors = [{ name = "diceroll123" }]
