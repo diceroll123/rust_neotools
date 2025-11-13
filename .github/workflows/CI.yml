@@ -59,34 +59,6 @@ jobs:
           name: wheels-macos-universal-${{ matrix.python-version }}
           path: dist
 
-  windows:
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
-        platform:
-          - target: x86_64-pc-windows-msvc
-            arch: x64
-          - target: aarch64-pc-windows-msvc
-            arch: x64
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: ${{ matrix.platform.arch }}
-      - name: "Build wheels - windows"
-        uses: PyO3/maturin-action@v1
-        with:
-          args: --release -i python${{ matrix.python-version }} --out dist
-      - name: Upload wheels
-        id: upload-windows
-        uses: actions/upload-artifact@v4
-        with:
-          name: wheels-windows-${{ matrix.python-version }}-${{ matrix.platform.target }}
-          path: dist
-
   linux:
     runs-on: ubuntu-latest
     strategy:
