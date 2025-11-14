@@ -3,7 +3,7 @@ repos:
     hooks:
       - id: uv-sync
         name: UV Sync
-        entry: uv sync --all-groups
+        entry: uv sync --all-groups --no-install-project
         language: system
         pass_filenames: false
         always_run: true
