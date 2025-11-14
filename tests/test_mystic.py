@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from rust_neotools import IslandMystic  # type: ignore  # noqa
+from rust_neotools import IslandMystic
 
 USERNAME = "diceroll123"
 CORRECT_ENGLISH_DATE = datetime(year=2022, month=10, day=30)
