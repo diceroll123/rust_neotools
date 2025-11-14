@@ -26,6 +26,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
+          enable-cache: false
       - name: "Build wheels - x86_64"
         uses: PyO3/maturin-action@v1
         with:
@@ -49,6 +50,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
+          enable-cache: false
       - name: "Build wheels - universal"
         uses: PyO3/maturin-action@v1
         with:
@@ -74,6 +76,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
+          enable-cache: false
       - name: "Build wheels - linux"
         uses: PyO3/maturin-action@v1
         with:
@@ -111,6 +114,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
+          enable-cache: false
       - name: "Build wheels - linux-cross"
         uses: PyO3/maturin-action@v1
         with:
@@ -139,6 +143,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
+          enable-cache: false
       - name: "Build wheels - musllinux"
         uses: PyO3/maturin-action@v1
         with:
@@ -169,6 +174,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
+          enable-cache: false
       - name: "Build wheels - musllinux-cross"
         uses: PyO3/maturin-action@v1
         with:
