@@ -30,11 +30,13 @@ include = ["python/rust_neotools/*.pyi", "python/rust_neotools/py.typed"]
 [dependency-groups]
 dev = [
     "pytest>=9.0.1",
+    "pyright>=1.1.389",
 ]
 
 [tool.pyright]
 include = [
-    "rust_neotools",
+    "python/rust_neotools",
+    "tests",
 ]
 exclude = [
     "**/__pycache__",
