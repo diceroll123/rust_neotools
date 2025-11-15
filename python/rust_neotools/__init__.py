@@ -2,9 +2,15 @@ __title__ = "rust_neotools"
 __author__ = "diceroll123"
 __license__ = "MIT"
 __copyright__ = "Copyright 2023-present diceroll123"
-__version__ = "0.0.3"
 
 from .rust_neotools import IslandMystic, Symol  # noqa: F401
+
+try:
+    from importlib.metadata import version
+
+    __version__ = version("rust_neotools")
+except Exception:
+    __version__ = "unknown"
 
 __all__ = (
     "IslandMystic",
