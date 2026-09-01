@@ -165,6 +165,78 @@ print(f"Valid minutes: {window}")
 
 ---
 
+### Php5Random
+
+Reimplementation of PHP5's `rand()`/`srand()` (on Linux, backed by glibc's `random()`).
+
+#### `Php5Random(seed)`
+
+**Parameters:**
+- `seed` (int): The seed value
+
+**Example:**
+```python
+from rust_neotools import Php5Random
+
+rng = Php5Random(1234)
+print(rng.rand())              # next random number in the sequence
+print(rng.rand_range(1, 100))  # next random number, scaled to [1, 100]
+```
+
+#### `Php5Random.rand()`
+
+Returns the next random number in the sequence.
+
+**Returns:** `int`
+
+#### `Php5Random.rand_range(min, max)`
+
+Returns the next random number in the sequence, scaled to the given range.
+
+**Parameters:**
+- `min` (int): Lower bound (inclusive)
+- `max` (int): Upper bound (inclusive)
+
+**Returns:** `int`
+
+---
+
+### Php5MtRandom
+
+Reimplementation of PHP5's `mt_rand()`/`mt_srand()` (a genuine Mersenne Twister, MT19937).
+
+#### `Php5MtRandom(seed)`
+
+**Parameters:**
+- `seed` (int): The seed value
+
+**Example:**
+```python
+from rust_neotools import Php5MtRandom
+
+rng = Php5MtRandom(1234)
+print(rng.rand())              # next random number in the sequence
+print(rng.rand_range(1, 100))  # next random number, scaled to [1, 100]
+```
+
+#### `Php5MtRandom.rand()`
+
+Returns the next random number in the sequence.
+
+**Returns:** `int`
+
+#### `Php5MtRandom.rand_range(min, max)`
+
+Returns the next random number in the sequence, scaled to the given range.
+
+**Parameters:**
+- `min` (int): Lower bound (inclusive)
+- `max` (int): Upper bound (inclusive)
+
+**Returns:** `int`
+
+---
+
 ## Development
 
 ### Building from source
